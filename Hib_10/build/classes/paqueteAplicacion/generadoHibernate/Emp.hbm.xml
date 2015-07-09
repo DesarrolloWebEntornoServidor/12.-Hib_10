@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 12-mar-2014 10:52:54 by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="paqueteAplicacion.generadoHibernate.Emp" table="emp" catalog="scott">
+        <id name="empno" type="short">
+            <column name="empno" precision="4" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="emp" class="paqueteAplicacion.generadoHibernate.Emp" fetch="select">
+            <column name="mgr" precision="4" scale="0" />
+        </many-to-one>
+<!-- NO FUNCIONA: Modifico fetch="select" a fetch="join" -->        
+        <many-to-one name="dept" class="paqueteAplicacion.generadoHibernate.Dept" fetch="select">
+            <column name="deptno" precision="2" scale="0" />
+        </many-to-one>
+        <property name="ename" type="string">
+            <column name="ename" length="10" />
+        </property>
+        <property name="job" type="string">
+            <column name="job" length="9" />
+        </property>
+        <property name="hiredate" type="date">
+            <column name="hiredate" length="10" />
+        </property>
+        <property name="sal" type="big_decimal">
+            <column name="sal" precision="7" />
+        </property>
+        <property name="comm" type="big_decimal">
+            <column name="comm" precision="7" />
+        </property>
+        <set name="emps" table="emp" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="mgr" precision="4" scale="0" />
+            </key>
+            <one-to-many class="paqueteAplicacion.generadoHibernate.Emp" />
+        </set>
+    </class>
+</hibernate-mapping>
